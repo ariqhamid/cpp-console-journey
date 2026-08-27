@@ -34,7 +34,6 @@ int main() {
         if(hasil == 0){std::cout << angka << " adalah genap" << std::endl;}
         else {std::cout << angka << " adalah ganjil" << std::endl;}
 
-    
         while(true){
             std::cout << "\ncek angka lain? (y/n): ";
             std::cin >> pilihan;
@@ -59,7 +58,6 @@ int main() {
             break;
         }
     }
-
 
     return 0;
 }
