@@ -9,11 +9,14 @@ int main(){
     double num1, num2;
     std::string operasi;
 
-    std::cout << " KALKULATOR SEDERHANA     \n";
-    std::cout << " >> input operasi         \n";
-    std::cout << " (+, -, *, /)             \n";
-    std::cout << " >> q/Q (untuk keluar)    \n";
-    std::cout << " >> n/N (untuk all clear) \n\n";
+    std::cout << "============================\n";
+    std::cout << "# KALKULATOR SEDERHANA     #\n";
+    std::cout << "# >> input operasi         #\n";
+    std::cout << "# (+, -, *, /)             #\n";
+    std::cout << "# >> q/Q (untuk keluar)    #\n";
+    std::cout << "# >> n/N (untuk all clear) #\n";
+    std::cout << "============================\n\n";
+
     
     while(true){
 
@@ -26,7 +29,7 @@ int main(){
 
     while(true){
 
-    std::cout << ">> ";
+    std::cout << "(+, -, *, /) >> ";
     std:: cin >> operasi;
 
     if(operasi == "+" || operasi == "-" || operasi == "*" || operasi == "/"){
