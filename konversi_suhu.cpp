@@ -24,7 +24,7 @@ int main(){
     std::cout << "4. Reamur\n";
 
     while (true) {
-        std::cout << "pilih (1-4) : ";
+        std::cout << ">> pilih (1-4) : ";
         std::cin >> asalStr;
 
         if (asalStr.length() == 1 && asalStr[0] >= '1' && asalStr[0] <= '4') {
@@ -47,7 +47,7 @@ int main(){
     std::cout << "4. Reamur\n";
 
     while (true) {
-        std::cout << "pilih (1-4) : ";
+        std::cout << ">> pilih (1-4) : ";
         std::cin >> tujuanStr;
 
         if (tujuanStr.length() == 1 && tujuanStr[0] >= '1' && tujuanStr[0] <= '4') {
