@@ -1,11 +1,59 @@
 #include <iostream>
 #include <limits>
+#include <string>
  
 int main(){
+    
+
+
+
+// Fungsi untuk meminta input suhu dengan validasi lengkap
+double inputSuhu(int asal, const std::string& pesan) {
+    double suhu;
+    while (true) {
+        std::cout << pesan;
+        std::cin >> suhu;
+
+        // Lapis 1: Cek huruf / input kosong
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Input tidak valid! Masukkan angka.\n";
+            continue;
+        }
+
+        // Lapis 2: Cek sisa buffer (misal "12abc" atau "3.14.15")
+        char sisaBuffer;
+        if (std::cin.get(sisaBuffer) && sisaBuffer != '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Input tidak valid! Masukkan satu angka saja.\n";
+            continue;
+        }
+
+        // Lapis 3: Cek batas bawah (nol absolut)
+        if ((asal == 1 && suhu < -273.15) ||
+            (asal == 2 && suhu < -459.67) ||
+            (asal == 3 && suhu < 0) ||
+            (asal == 4 && suhu < -218.52)) {
+            std::cout << "Error: Suhu di bawah nol absolut! Tidak mungkin.\n";
+            continue;
+        }
+
+        // Jika lolos semua validasi, keluar dari loop
+        break;
+    }
+    return suhu;
+}
+
+
+
+
+
 
     double c, f, k, r;
 
-    int asal, tujuan;
+    std::string asalStr, tujuanStr;
+    int asal = 0, tujuan = 0;
     double suhu, hasil;
     std::string pilih;
     std::string satuan[4] = {"°C", "°F", "K", "°R"};
@@ -22,22 +70,16 @@ int main(){
 
     while (true) {
     std::cout << "pilih (1-4) : ";
-    std::cin >> asal;
+    std::cin >> asalStr;
 
-    if (std::cin.fail()) {
-        std::cin.clear();
+    if (asalStr.length() == 1 && asalStr[0] >= '1' && asalStr[0] <= '4') {
+        asal = asalStr[0] - '0';  
+        break;
+    } else {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Input tidak valid!n\npilih (1-4) : \n";
-        continue; 
+        std::cout << "Input tidak valid! Masukkan angka 1, 2, 3, atau 4.\n";
     }
-    if (asal < 1 || asal > 4) {
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Pilihan harus 1, 2, 3, atau 4.\npilih (1-4) : \n";
-        continue; 
-    }
-    break;
 }
-
     std::cout << std::endl;
 
     std::cout << "=== KONVERSI SUHU (tujuan) ===\n";
@@ -49,34 +91,55 @@ int main(){
 
     while (true) {
     std::cout << "pilih (1-4) : ";
-    std::cin >> tujuan;
-    
-    if (std::cin.fail()) {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Input tidak valid! Masukan angka\n";
-        continue; 
-    }
-    if (asal < 1 || asal > 4) {
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        std::cout << "Pilihan harus 1, 2, 3, atau 4.\n";
-        continue; 
-    }
-    break;
-}
+    std::cin >> tujuanStr;
 
+    if (tujuanStr.length() == 1 && tujuanStr[0] >= '1' && tujuanStr[0] <= '4') {
+        tujuan = tujuanStr[0] - '0';  
+        break;
+    } else {
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Input tidak valid! Masukkan angka 1, 2, 3, atau 4.\n";
+    }
+}
     std::cout << std::endl;
 
-    pilih = "l";
 
+    pilih = "l";
+    
     while(true){
 
-        if (pilih == "l" || pilih == "l"){
+        if (pilih == "l" || pilih == "L"){
 
         if(asal == 1 && tujuan == 2){
             std::cout << ">> Celcius ke Fahrenheit\n";
-            std::cout << "input suhu Celcius : ";
-            std::cin >> suhu;
+            while(true){
+                std::cout << "input suhu Celcius : ";
+                std::cin >> suhu;
+
+                if (std::cin.fail()){
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Input tidak valid!, Masukan angka\n";
+                    continue;
+                }
+
+                char sisaBuffer;
+                if (std::cin.get(sisaBuffer) && sisaBuffer != '\n'){
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                    std::cout << "Input tidak valid! Masukan angka saja\n";
+                    continue;
+                }
+
+                if ((asal == 1 && suhu < -273.15) ||
+                    (asal == 2 && suhu < -459.67) ||
+                    (asal == 3 && suhu < 0) ||
+                    (asal == 4 && suhu < -218.52)) {
+                        std::cout << "Error: suhu di bawah nol absolut!\n";
+                        continue;
+                    }
+
+                    break;
+            }
             // celcius ke fahrenheit
             hasil = (suhu * 9/5) + 32;
             std::cout << suhu << satuan[0] << " = " << hasil << satuan[1] << std::endl;
@@ -204,6 +267,10 @@ int main(){
     }
 
     }
+
+
+
+
 
     return 0;
 }
